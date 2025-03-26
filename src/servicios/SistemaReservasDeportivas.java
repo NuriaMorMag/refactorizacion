@@ -4,18 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 import entidades.Reserva;
 
-
+/**
+ * Clase que gestiona las reservas de pistas deportivas
+ * Permite realizar, cancelar y verificar reservas, así como administrar la iluminación de las pistas
+ * 
+ * @author Fran Vigueras
+ */
 public class SistemaReservasDeportivas {
 
     private List<Reserva> reservas;
     private boolean[] iluminacion;
     private static final int MAX_PISTAS = 10; // Asumimos un máximo de 10 pistas
 
+    /**
+     * Constructor. Inicializa la lista de reservas y el estado de iluminación de las pistas
+     */
     public SistemaReservasDeportivas() {
         reservas = new ArrayList<>();
         iluminacion = new boolean[MAX_PISTAS];
     }
 
+    
+    /**
+     * Reserva una pista deportiva
+     * 
+     * @param idPista Identificador de la pista a reservar
+     * @param fecha Fecha de la reserva 
+     * @param duracion Duración de la reserva en horas
+     * @return true si la reserva se realiza con éxito, y false si la pista ya está reservada o el ID es inválido
+     */
     public boolean reservarPista(int idPista, String fecha, int duracion) {
         if (idPista < 0 || idPista >= MAX_PISTAS) {
             return false; // ID de pista inválido
@@ -29,6 +46,13 @@ public class SistemaReservasDeportivas {
         return true;
     }
 
+    
+    /**
+     * Cancela una reserva 
+     * 
+     * @param idReserva Identificador de la reserva a cancelar
+     * @return true si la reserva fue cancelada, false si no se encontró
+     */
     public boolean cancelarReserva(int idReserva) {
         for (int i = 0; i < reservas.size(); i++) {
             if (reservas.get(i).getIdPista() == idReserva) {
@@ -39,6 +63,13 @@ public class SistemaReservasDeportivas {
         return false; // No se encontró la reserva
     }
 
+    
+    /**
+     * Activa la iluminación de una pista 
+     * 
+     * @param idPista Identificador de la pista
+     * @return true si la iluminación fue activada con éxito, false si el ID es inválido
+     */
     public boolean activarIluminacion(int idPista) {
         if (idPista < 0 || idPista >= MAX_PISTAS) {
             return false; // ID de pista inválido
@@ -47,6 +78,13 @@ public class SistemaReservasDeportivas {
         return true;
     }
 
+    
+    /**
+     * Desactiva la iluminación de una pista 
+     * 
+     * @param idPista Identificador de la pista
+     * @return true si la iluminación fue desactivada con éxito, false si el ID es inválido
+     */
     public boolean desactivarIluminacion(int idPista) {
         if (idPista < 0 || idPista >= MAX_PISTAS) {
             return false; // ID de pista inválido
@@ -55,6 +93,15 @@ public class SistemaReservasDeportivas {
         return true;
     }
 
+    
+    /**
+     * Verifica la disponibilidad de una pista en una fecha y hora 
+     * 
+     * @param idPista Identificador de la pista
+     * @param fecha Fecha de la reserva 
+     * @param hora Hora en la que se quiere reservar la pista
+     * @return true si la pista está disponible, false si está reservada
+     */
     public boolean verificarDisponibilidad(int idPista, String fecha, String hora) {
         if (idPista < 0 || idPista >= MAX_PISTAS) {
             return false; // ID de pista inválido
